@@ -180,21 +180,21 @@ function iniciarJuego() {
 
     botonReiniciar.addEventListener("click", reiniciarJuego)
 
-    unirseJuego()
+    unirseAlJuego()
 
 }
 
-function unirseJuego (){
+function unirseAlJuego (){
     fetch("http://localhost:8080/unirse")
         .then(function(res){
             // console.log(res)
-            if(res.ok) {
-                res.text()
-                    .then(function(respuesta){
-                        console.log(respuesta)
-                        jugadorId = respuesta
-                    })
-            }
+                if(res.ok) {
+                    res.text()
+                        .then(function(respuesta){
+                            console.log(respuesta)
+                            jugadorId = respuesta
+                        })
+                }
         })
 }
 
@@ -226,7 +226,7 @@ function unirseJuego (){
 
 function seleccionarMokepon(mascotaJugador){
     fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
-        method:"post",
+        method: "post",
         headers: {
             "content-type": "application/json"
         },
