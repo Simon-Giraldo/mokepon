@@ -248,11 +248,26 @@ function secuenciaAtaque() {
                 boton.style.background = '#112f58'
                 boton.disabled = true  
             }
-            ataqueAleatorioEnemigo()
+            if(ataqueJugador. length === 5 ){
+                enviarAtaques()
+            }
+            
         })
     })
     
 
+}
+
+function enviarAtaques(){
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`, {
+        method: "post",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            ataques: ataqueJugador
+        })
+    })
 }
 
 function seleccionarMascotaEnemigo(enemigo) {
@@ -379,12 +394,9 @@ function pintarCanvas() {
     
     mokeponesEnemigos.forEach(function (mokepon) {
         mokepon.pintarMokepon()
+        revisarColision(mokepon)
     })
-    if (mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0) {
-        revisarColision(hipodogeEnemigo)
-        revisarColision(capipepoEnemigo)
-        revisarColision(ratigueyaEnemigo)
-    }
+    
 }
 
 function enviarPosicion(x, y) {
