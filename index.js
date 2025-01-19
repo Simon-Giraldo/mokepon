@@ -3,6 +3,7 @@ const cors = require("cors")
 
 const app = express()
 
+app.use(express.static("public"))
 app.use(cors())
 app.use(express.json())
 
@@ -90,6 +91,14 @@ app.post("/mokepon/:jugadorId/ataques", (req, res) => {
   }
 
   res.end()
+})
+
+app.get("/mokepon/:jugadorId/ataques", (req, res) => {
+  const jugadorId = req.params.jugadorId || ""
+  const jugador = jugadores.find((jugador) => jugador.id === jugadorId)
+  res.send({
+    ataques: jugador.ataques || []
+  })
 })
 
 app.listen(8080, () => {
